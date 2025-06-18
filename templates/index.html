@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>House Price Predictor</title>
+  <style>
+    * {
+      box-sizing: border-box;
+
+      margin: 0;
+      padding: 0;
+    }
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to bottom, #1f2937, #374151);
+  background-image: url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1950&q=80');
+  background-size: cover;
+  background-position: center -170px;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+
+.container {
+  background-color: rgba(26, 26, 46, 0.9); /* Slight transparency for glowing effect */
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 255, 255, 0.2);
+  max-width: 700px;
+  width: 100%;
+  padding: 40px;
+  color: #fff;
+  backdrop-filter: blur(7px); /* Frosted glass look */
+}
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #00fff7;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #ccc;
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border-radius: 10px;
+      border: 1px solid #444;
+      background-color: #2e2e4d;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    input[type="number"]:invalid {
+      border: 1px solid red;
+    }
+
+    select {
+      cursor: pointer;
+    }
+
+    button {
+      margin-top: 30px;
+      width: 100%;
+      background: #00adb5;
+      color: #fff;
+      font-size: 18px;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      transition: background 0.3s ease;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #00ffcc;
+    }
+
+    .footer-text {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #aaa;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <h1 class="display:flex">
+        <div class="icon">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="#ffffff" height="64px" viewBox="0 0 24 24" width="64px">
+    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+  </svg>
+</div>
+
+         Predict Your House Price</h1>
+    <form method="POST" action="/predict" onsubmit="return validateForm();">
+
+      <label for="OverallQual">Overall Quality (1 - 10)</label>
+      <input type="number" id="OverallQual" name="OverallQual" min="1" max="10" required />
+
+      <label for="GrLivArea">Above Ground Living Area (sq ft)</label>
+      <input type="number" id="GrLivArea" name="GrLivArea" required />
+
+      <label for="GarageCars">Garage Capacity (cars)</label>
+      <input type="number" id="GarageCars" name="GarageCars" min="0" max="7" required />
+
+      <label for="GarageArea">Garage Area (sq ft)</label>
+      <input type="number" id="GarageArea" name="GarageArea" required />
+
+      <label for="TotalBsmtSF">Total Basement Area (sq ft)</label>
+      <input type="number" id="TotalBsmtSF" name="TotalBsmtSF" required />
+
+      <label for="1stFlrSF">1st Floor Area (sq ft)</label>
+      <input type="number" id="1stFlrSF" name="1stFlrSF" required />
+
+      <label for="ExterQual_TA">Exterior Quality: Typical/Average?</label>
+      <select id="ExterQual_TA" name="ExterQual_TA" required>
+        <option value="" disabled selected>Select...</option>
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+      </select>
+
+      <label for="KitchenQual_TA">Kitchen Quality: Typical/Average?</label>
+      <select id="KitchenQual_TA" name="KitchenQual_TA" required>
+        <option value="" disabled selected>Select...</option>
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+      </select>
+
+      <label for="GarageFinish_Unf">Garage Finish: Unfinished?</label>
+      <select id="GarageFinish_Unf" name="GarageFinish_Unf" required>
+        <option value="" disabled selected>Select...</option>
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+      </select>
+
+      <button type="submit">🔍 Predict House Price</button>
+    </form>
+    <div class="footer-text">
+      Powered by Machine Learning (Linear Regression / Random Forest)
+    </div>
+  </div>
+
+  <script>
+    function validateForm() {
+      const garageCars = document.getElementById("GarageCars").value;
+      if (garageCars > 7) {
+        alert("Garage cars cannot exceed 7. Please enter a valid value.");
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>
